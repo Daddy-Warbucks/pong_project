@@ -6,7 +6,9 @@ public class PaddleBehavior : MonoBehaviour
 {
     public float spd = 10;
     Vector3 vec = new Vector3(0, 0, 1);
-    KeyCode downKey, upKey;
+    KeyCode downKey, upKey, shootKey;
+    public GameObject Bullet;
+    bool Gun = false;
     
     // Start is called before the first frame update
     void Start()
@@ -14,11 +16,13 @@ public class PaddleBehavior : MonoBehaviour
         if (gameObject.tag == "RightPaddle") {
             downKey = KeyCode.DownArrow;
             upKey = KeyCode.UpArrow;
+            shootKey = KeyCode.Space;
         }
         
         if (gameObject.tag == "LeftPaddle") {
             downKey = KeyCode.S;
             upKey = KeyCode.W;
+            shootKey = KeyCode.F;
         }
     }
 
@@ -31,6 +35,20 @@ public class PaddleBehavior : MonoBehaviour
         
         if (Input.GetKey(upKey)) {
             transform.Translate(vec * spd * Time.deltaTime);
+        }
+        
+        if (Input.GetKeyDown(shootKey) && Gun) {
+            Instantiate(Bullet, gameObject.transform.position, new Quaternion()); 
+        }
+    }
+    
+    public void PowerUp(string Power) {
+        if (Power == "Gun") {
+            Gun = true;
+        }
+        
+        if (Power == "Speed") {
+            spd += 6;
         }
     }
 }

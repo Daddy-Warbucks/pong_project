@@ -10,6 +10,8 @@ TagManager:
   - Ball
   - LeftGoal
   - RightGoal
+  - Bullet
+  - PowerUp
   layers:
   - Default
   - TransparentFX

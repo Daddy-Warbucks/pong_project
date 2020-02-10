@@ -9,6 +9,7 @@ public class BallBehavior : MonoBehaviour
     Vector3 vec = new Vector3(1, 0, 1);
     Vector3 ballPos;
     public GameObject ScoreManager;
+    GameObject lastHitPaddle;
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,13 @@ public class BallBehavior : MonoBehaviour
         if (collision.gameObject.tag == "RightPaddle" || collision.gameObject.tag == "LeftPaddle") {
             vec.Set(-vec.x, 0, vec.z);
             spd += 1;
+            lastHitPaddle = collision.gameObject;
+        }
+        
+        if (collision.gameObject.tag == "Bullet") {
+            vec.Set(-vec.x, 0, vec.z);
+            spd += 1;
+            Destroy(collision.gameObject);
         }
         
         if (collision.gameObject.tag == "LeftGoal" || collision.gameObject.tag == "RightGoal") {
@@ -47,5 +55,15 @@ public class BallBehavior : MonoBehaviour
             gameObject.transform.position = ballPos;
             spd = spdTemp;
         }
+        
+        if (collision.gameObject.tag == "PowerUp") {
+            lastHitPaddle.GetComponent<PaddleBehavior>()
+                .PowerUp(collision.gameObject.GetComponent<PowerUpBehavior>().GetPowerUp());
+            Destroy(collision.gameObject);
+        }
+    }
+    
+    public float GetSpd() {
+        return spd;
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     public GameObject GameManager;
+    [SerializeField] private Text ScoreLeft;
+    [SerializeField] private Text ScoreRight;
     int Score1 = 0;
     int Score2 = 0;
     
@@ -38,5 +41,13 @@ public class ScoreManager : MonoBehaviour
     public void IncrementScore2() {
         Score2++;
         Debug.Log("Player 2 has scored!\nPlayer 1: " + Score1 + "        Player 2: " + Score2);
+    }
+    
+    public int GetScore1() {
+        return Score1;
+    }
+    
+    public int GetScore2() {
+        return Score2;
     }
 }
